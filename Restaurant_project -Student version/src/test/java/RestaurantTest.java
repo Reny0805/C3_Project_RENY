@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -66,5 +67,20 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    //Method to test the ordercost
+    //Method to implement getorderValue
+    //arugments String<List> ItemName
 
+    @Test
+    public void  get_total_order_cost_when_items_are_chosen() throws itemNotFoundException {
+        List<String> ItemName=List.of("Sweet corn soup","Vegetable lasagne");
+        int Cost=restaurant.getOrderValue(ItemName);
+        assertEquals(388,Cost);
+    }
+
+    @Test
+    public void  get_total_order_cost_when_items_chosen_are_not_from_menu() throws itemNotFoundException {
+        List<String> ItemName=List.of("Vegetable fried rice");
+        assertThrows(itemNotFoundException.class,()->restaurant.getOrderValue(ItemName));
+    }
 }

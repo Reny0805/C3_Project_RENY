@@ -30,12 +30,12 @@ public class Restaurant {
         return menu;
     }
 
-    private Item findItemByName(String itemName){
+    private Item findItemByName(String itemName) throws itemNotFoundException {
         for(Item item: menu) {
             if(item.getName().equals(itemName))
                 return item;
         }
-        return null;
+        throw new itemNotFoundException("Item not found in Restaurant");
     }
 
     public void addToMenu(String name, int price) {
@@ -62,9 +62,14 @@ public class Restaurant {
     public String getName() {
         return name;
     }
-    public int getOrderValue(List<String> itemNameList) {
-
-        return 0;
+    public int getOrderValue(List<String> itemNameList) throws itemNotFoundException {
+        int totalCost=0;
+        Item item;
+        for (String itemName : itemNameList) {
+            item = findItemByName(itemName);
+            totalCost = totalCost + item.getPrice();
+        }
+        return totalCost;
     }
 
 }
